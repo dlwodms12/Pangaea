@@ -9,6 +9,7 @@ Saved/
 *.VC.db
 *.opendb
 *.sln
+enc_temp_folder/
 
 # OS
 .DS_Store
