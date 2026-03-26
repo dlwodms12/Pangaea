@@ -25,3 +25,17 @@ void ADefenseTower::Tick(float DeltaTime)
 
 }
 
+int ADefenseTower::GetHelthPoints()
+{
+	return _HelthPoints;
+}
+
+bool ADefenseTower::IsDestroyed()
+{
+	return (_HelthPoints > 0.0f);
+}
+
+bool ADefenseTower::CanFire()
+{
+	return (_ReloadCountingDown <= 0.0f);
+}

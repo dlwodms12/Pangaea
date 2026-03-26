@@ -32,3 +32,17 @@ void APlayerAvatar::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
+int APlayerAvatar::GetHelthPoints()
+{
+	return _HelthPoints;
+}
+
+bool APlayerAvatar::IsKilled()
+{
+	return (_HelthPoints <= 0.0f);
+}
+
+bool APlayerAvatar::CanAttack()
+{
+	return (_AttackCountingDown <= 0.0f);
+}

@@ -52,9 +52,22 @@ public:
 
 	//public 함수
 	//모든 곳에서 호출 가능한 함수
+	//UFUNCTION 매크로 적용 전
+	/*
 	int GetHelthPoints(); //타워 체력 값 반환
 	bool IsDestroyed(); //파괴 여부
 	bool CanFire(); //사격 가능 여부
+	*/
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
+	int GetHelthPoints();
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
+	bool IsDestroyed();
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
+	bool CanFire();
+	
 	void Fire(); //발사
 	void Hit(int damage); //피격
 

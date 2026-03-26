@@ -54,10 +54,22 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//함수
+	//함수(매크로 적용 전)
+	/*
 	int GetHelthPoints();
 	bool IsKilled();
 	bool CanAttack();
+	*/
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|PlayerCharacter", meta = (DisplayName = "Get HP"))
+	int GetHelthPoints();
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|PlayerCharacter")
+	bool IsKilled();
+
+	UFUNCTION(BlueprintCallable, Category = "Pangaea|PlayerCharacter")
+	bool CanAttack();
+
 	void Attack();
 	void Hit(int damage);
 
