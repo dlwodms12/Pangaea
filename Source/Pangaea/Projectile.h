@@ -15,9 +15,20 @@ public:
 	// Sets default values for this actor's properties
 	AProjectile();
 
-	//public 加己
+	//public 加己(概农肺 瘤沥 傈)
+	/*
 	float Speed = 100.0f;
 	float Lifespan = 5.0f;
+	float Damage = 10.0f;
+	*/
+
+	UPROPERTY(EditAnywhere, Category = "Projectile Params")
+	float Speed = 100.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile Params")
+	float Lifespan = 5.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile Params")
 	float Damage = 10.0f;
 
 protected:

@@ -15,11 +15,28 @@ public:
 	// Sets default values for this character's properties
 	APlayerAvatar();
 
-	//加己
+	//加己(概农肺 瘤沥 傈)
+	/*
 	int HelthPoints = 500;
 	float Strength = 10;
 	float Armer = 3;
 	float AttackRange = 6.0f;
+	float AttackInterval = 1.2f;
+	*/
+	
+	UPROPERTY(EditAnywhere, Category = "PlayerAvatar Params")
+	int HelthPoints = 500;
+
+	UPROPERTY(EditAnywhere, Category = "PlayerAvatar Params")
+	float Strength = 10.0f;
+
+	UPROPERTY(EditAnywhere, Category = "PlayerAvatar Params")
+	float Armer = 3.0f;
+
+	UPROPERTY(EditAnywhere, Category = "PlayerAvatar Params")
+	float AttackRange = 6.0f;
+
+	UPROPERTY(EditAnywhere, Category = "PlayerAvatar Params")
 	float AttackInterval = 1.2f;
 
 protected:

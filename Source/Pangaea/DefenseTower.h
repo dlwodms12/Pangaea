@@ -15,12 +15,26 @@ public:
 	// Sets default values for this actor's properties
 	ADefenseTower();
 
-	//public 속성 값
+	//public 속성 값 (=UPROPERTY 매크로 지정 전)
 	//실시간으로 변경되지 않으며, 필요시 에디터에서 값을 수정하거나 시작할 때 수정함.
+	/*
 	int HelthPoints = 100; //타워 체력 초기값
 	int ShellDefense = 2; //장갑 수치초기값
 	float AttackRange = 15.0f; //공격 범위 초기값
 	float ReloadInterval = 1.0f; //재장전 시간
+	*/
+	
+	UPROPERTY(EditAnywhere, Category = "Tower Params")
+	int HelthPoints = 500;
+
+	UPROPERTY(EditAnywhere, Category = "Tower Params")
+	int ShellDefense = 3;
+
+	UPROPERTY(EditAnywhere, Category = "Tower Params")
+	float AttackRange = 6.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Tower Params")
+	float ReloadInterval = 1.0f;
 
 
 protected:
