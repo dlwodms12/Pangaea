@@ -6,7 +6,8 @@
 #include "GameFramework/Character.h"
 #include "PlayerAvatar.generated.h"
 
-UCLASS()
+//블루프린트 지정자 추가
+UCLASS(Blueprintable)
 class PANGAEA_API APlayerAvatar : public ACharacter
 {
 	GENERATED_BODY()

@@ -8,7 +8,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Projectile.generated.h"
 
-UCLASS()
+//블루프린트 지정자 추가
+UCLASS(Blueprintable)
 class PANGAEA_API AProjectile : public AActor
 {
 	GENERATED_BODY()

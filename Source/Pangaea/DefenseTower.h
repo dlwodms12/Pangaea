@@ -10,7 +10,8 @@
 //*.generated.h 구문은 항상 include 구문 맨 마지막에 와야함
 #include "DefenseTower.generated.h"
 
-UCLASS()
+//블루프린트로 생성하기 위해 블루프린트 지정자 추가
+UCLASS(Blueprintable)
 class PANGAEA_API ADefenseTower : public AActor
 {
 	GENERATED_BODY()
