@@ -67,10 +67,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
 	int GetHelthPoints();
 
-	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
+	UFUNCTION(BlueprintPure, Category = "Pangaea|Defense Tower")
 	bool IsDestroyed();
 
-	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower", meta = (DisplayName = "GetHP"))
+	UFUNCTION(BlueprintPure, Category = "Pangaea|Defense Tower")
 	bool CanFire();
 	
 	void Fire(); //น฿ป็
