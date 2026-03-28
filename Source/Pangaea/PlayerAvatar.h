@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 #include "PlayerAvatar.generated.h"
 
 //블루프린트 지정자 추가
@@ -73,7 +75,28 @@ public:
 
 	void Attack();
 	void Hit(int damage);
+	
+	//클래스 외부에서 카메라와 스프링암 포인터를 검색하기 위한 게터함수
+	//추가했다면 헤더파일에 컴포넌트 추가해야함.
+	//이후 생성자에서 컴포넌트를 인스턴스화해야함
+	FORCEINLINE USpringArmComponent* GetSpringArmComponent() const
+	{
+		return _springArmComponent;
+	}
+
+	FORCEINLINE UCameraComponent* GetCameraComponent() const
+	{
+		return _cameraComponent;
+	}
 
 protected:
 	void DieProcess();
+
+private:
+	//SpringArmComponent와 CameraComponent의 포인터를 저장하기 위한 변수 정의
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* _springArmComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* _cameraComponent;
 };
