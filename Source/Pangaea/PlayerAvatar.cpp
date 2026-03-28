@@ -2,6 +2,7 @@
 
 
 #include "PlayerAvatar.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 APlayerAvatar::APlayerAvatar()
@@ -26,6 +27,21 @@ APlayerAvatar::APlayerAvatar()
 	_cameraComponent->SetupAttachment(_springArmComponent, USpringArmComponent::SocketName);
 	//cameraComponent의 회전이 폰의 회전에 따라 달라지는 시각/회전 제어에 영향을 받는지 결정
 	_cameraComponent->bUsePawnControlRotation = false;
+
+	//초기화 작업 수행
+	//Tick 함수를 활성화해 게임 프레임을 업데이트할 때마다 캐릭터의 Tick 함수 호출
+	PrimaryActorTick.bCanEverTick = true;
+	//탑다운 게임에선 캐릭터가 달리는 방향만 정해지면 되므로 플레이어가 캐릭터를 회전하지 않도록 설정
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	//characterMovement를 통해 캐릭터가 달리는 방향이 제어됨.
+	auto* characterMovement = GetCharacterMovement();
+	characterMovement->bOrientRotationToMovement = true;
+	characterMovement->RotationRate = FRotator(0.f, 640.f, 0.f);
+	characterMovement->bConstrainToPlane = true;
+	characterMovement->bSnapToPlaneAtStart = true;
 }
 
 // Called when the game starts or when spawned
