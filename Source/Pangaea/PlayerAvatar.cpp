@@ -38,9 +38,13 @@ APlayerAvatar::APlayerAvatar()
 
 	//characterMovement를 통해 캐릭터가 달리는 방향이 제어됨.
 	auto* characterMovement = GetCharacterMovement();
+	//캐릭터가 이동하는 방향으로 자동으로 몸을 돌림
 	characterMovement->bOrientRotationToMovement = true;
+	//회전 속도 설정 (초당 640도)
 	characterMovement->RotationRate = FRotator(0.f, 640.f, 0.f);
+	//캐릭터가 Z축 이동하지 않도록 특정 평면에 가둠
 	characterMovement->bConstrainToPlane = true;
+	//캐릭터가 시작할 때 평면에 딱 붙도록 설정
 	characterMovement->bSnapToPlaneAtStart = true;
 }
 
