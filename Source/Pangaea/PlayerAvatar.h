@@ -47,7 +47,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	//¼Ó¼º
-	int _HelthPoints;
+	int _HealthPoints;
 	float _AttackCountingDown;
 
 public:	
@@ -65,7 +65,7 @@ public:
 	*/
 
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|PlayerCharacter", meta = (DisplayName = "Get HP"))
-	int GetHelthPoints();
+	int GetHealthPoints();
 
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|PlayerCharacter")
 	bool IsKilled();
