@@ -3,6 +3,7 @@
 
 #include "PlayerAvatar.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "PlayerAvatarAnimInstance.h"
 
 // Sets default values
 APlayerAvatar::APlayerAvatar()
@@ -60,6 +61,11 @@ void APlayerAvatar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//애니메이션 인스턴스와 이동속도 싱크 맞추기
+	//애니메이션 인스턴스를 획득한다음 UPlayerAvatarAnimInstance 클래스 포인터가 되도록 캐스팅한 후 할당
+	UPlayerAvatarAnimInstance* animInst = Cast<UPlayerAvatarAnimInstance>(GetMesh()->GetAnimInstance());
+	//캐릭터의 무브먼트 컴포넌트에서 Velocity 벡터를 읽어온 다음, 벡터의 길이를 계산하고 Speed 변수에 할당함.
+	animInst->Speed = GetCharacterMovement()->Velocity.Size2D();
 }
 
 // Called to bind functionality to input
