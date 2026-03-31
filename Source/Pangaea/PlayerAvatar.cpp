@@ -85,6 +85,7 @@ bool APlayerAvatar::IsKilled()
 	return (_HealthPoints <= 0.0f);
 }
 
+//공격을 수행할 수 있는지 판단
 bool APlayerAvatar::CanAttack()
 {
 	return (_AttackCountingDown <= 0.0f);

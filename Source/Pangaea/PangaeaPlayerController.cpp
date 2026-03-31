@@ -7,6 +7,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "PangaeaCharacter.h"
 #include "Engine/World.h"
+#include "PlayerAvatar.h"
 
 APangaeaPlayerController::APangaeaPlayerController()
 {
@@ -61,6 +62,8 @@ void APangaeaPlayerController::SetupInputComponent()
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &APangaeaPlayerController::OnTouchPressed);
 	InputComponent->BindTouch(EInputEvent::IE_Released, this, &APangaeaPlayerController::OnTouchReleased);
 
+	// Attack 액션 바인딩
+	InputComponent->BindAction("Attack", IE_Pressed, this, &APangaeaPlayerController::OnAttackPressed);
 }
 
 void APangaeaPlayerController::OnSetDestinationPressed()
@@ -101,4 +104,18 @@ void APangaeaPlayerController::OnTouchReleased(const ETouchIndex::Type FingerInd
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+
+//OnAttackPressed() 액션 핸들러 함수 구현
+void APangaeaPlayerController::OnAttackPressed()
+{
+	//GetPawn 함수는 현재 제어하고 있는 폰의 포인터를 반환
+	//APawn 포인터를 Cast() 함수로 APlayerAvatar* 포인터로 캐스팅
+	auto playerAvatar = Cast<APlayerAvatar>(GetPawn());
+	//CanAttack 함수는 플레이어가 쿨다운 상태가 되어 공격을 수행할 수 있는 상태인지 판단
+	if (playerAvatar->CanAttack())
+	{
+		//Attack 함수는 카운트다운을 수행하면서 플레이어가 Attack 애니메이션을 수행하도록 만듦
+		playerAvatar->Attack();
+	}
 }

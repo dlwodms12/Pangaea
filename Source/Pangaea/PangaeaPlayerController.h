@@ -41,6 +41,9 @@ protected:
 	void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
 
+	//공격 기능을 수행하는 함수(Attack 액션에 바인딩)
+	void OnAttackPressed();
+
 private:
 	bool bInputPressed; // Input is bring pressed
 	bool bIsTouch; // Is it a touch device
