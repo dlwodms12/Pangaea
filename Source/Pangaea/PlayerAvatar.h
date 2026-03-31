@@ -75,6 +75,7 @@ public:
 
 	void Attack();
 	void Hit(int damage);
+	void DieProcess();
 	
 	//클래스 외부에서 카메라와 스프링암 포인터를 검색하기 위한 게터함수
 	//추가했다면 헤더파일에 컴포넌트 추가해야함.
@@ -88,9 +89,6 @@ public:
 	{
 		return _cameraComponent;
 	}
-
-protected:
-	void DieProcess();
 
 private:
 	//SpringArmComponent와 CameraComponent의 포인터를 저장하기 위한 변수 정의

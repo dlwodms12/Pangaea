@@ -113,3 +113,14 @@ void APlayerAvatar::Attack()
 {
 	_AttackCountingDown = AttackInterval;
 }
+//액터 파괴
+void APlayerAvatar::DieProcess()
+{
+	//Tick에서 캐릭터를 제외
+	PrimaryActorTick.bCanEverTick = false;
+	//캐릭터를 파괴 : 액터를 파괴하고 메모리를 대상으로 가비지 컬렉션을 수행한다음 메모리를 반환
+	K2_DestroyActor();
+	GEngine->ForceGarbageCollection(true);
+
+	//위 세줄의 코드는 Destroy(); 한줄로 치환할 수 있음
+}
