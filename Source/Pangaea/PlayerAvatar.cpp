@@ -66,6 +66,19 @@ void APlayerAvatar::Tick(float DeltaTime)
 	UPlayerAvatarAnimInstance* animInst = Cast<UPlayerAvatarAnimInstance>(GetMesh()->GetAnimInstance());
 	//캐릭터의 무브먼트 컴포넌트에서 Velocity 벡터를 읽어온 다음, 벡터의 길이를 계산하고 Speed 변수에 할당함.
 	animInst->Speed = GetCharacterMovement()->Velocity.Size2D();
+
+	//카운팅다운과 공격 쿨다운 제한 시간이 동일하다면(충분히 시간이 지났다면)
+	if (_AttackCountingDown == AttackInterval)
+	{
+		//공격 애니메이션으로 스테이트를 전환
+		animInst->State = EPlayerState::Attack;
+	}
+	//아직 쿨다운 시간이 남았다면
+	if (_AttackCountingDown > 0.0f)
+	{
+		//카운팅다운
+		_AttackCountingDown -= DeltaTime;
+	}
 }
 
 // Called to bind functionality to input
@@ -88,5 +101,15 @@ bool APlayerAvatar::IsKilled()
 //공격을 수행할 수 있는지 판단
 bool APlayerAvatar::CanAttack()
 {
-	return (_AttackCountingDown <= 0.0f);
+	//GetMesh()함수는 캐릭터의 SkeletalMesh 컴포넌트의 포인터를 반환
+	//GetAnimInstance 함수는 SkeletalMesh와 연동돼 있는 애니메이션 인스턴스의 포인터를 반환
+	//Attack 스테이트의 카운트다운 시간이 끝났다면 true를 반환하고 현재 스테이트를 Locomotion으로 변경
+	//그렇지 않을 경우 false 반환
+	UPlayerAvatarAnimInstance* animInst = Cast<UPlayerAvatarAnimInstance>(GetMesh()->GetAnimInstance());
+	return (_AttackCountingDown <= 0.0f && animInst->State == EPlayerState::Locomotion);
+}
+//쿨다운 타이머 초기화
+void APlayerAvatar::Attack()
+{
+	_AttackCountingDown = AttackInterval;
 }
