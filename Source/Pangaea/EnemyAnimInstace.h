@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
-#include "EnemyAnimInstace.generated.h"
+#include "EnemyAnimInstance.generated.h"
 
 UENUM(BlueprintType)
 enum class EEnemyState : uint8
@@ -15,20 +15,26 @@ enum class EEnemyState : uint8
 	Die
 };
 
+
 /**
- * 
+ *
  */
 UCLASS()
-class PANGAEA_API UEnemyAnimInstace : public UAnimInstance
+class PANGAEA_API UEnemyAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
+
+
 public:
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Params")
 	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Params")
 	EEnemyState State;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Params")
+	UFUNCTION(BlueprintCallable)
 	void OnStateAnimationEnds();
+
 };
+

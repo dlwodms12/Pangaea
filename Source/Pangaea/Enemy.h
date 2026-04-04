@@ -16,57 +16,50 @@ public:
 	AEnemy();
 
 	UPROPERTY(EditAnywhere, Category = "Enemy Params")
-	int HealthPoints = 100;
+	int HealthPoints = 100;			//the character's max health points
 
 	UPROPERTY(EditAnywhere, Category = "Enemy Params")
-	float Strenth = 5.0f;
+	float Strength = 5;			//the character's attack strength
 
 	UPROPERTY(EditAnywhere, Category = "Enemy Params")
-	float Armor = 1;
+	float Armer = 1;				//the character's defense armer
 
 	UPROPERTY(EditAnywhere, Category = "Enemy Params")
-	float AttackRange = 200.0f;
+	float AttackRange = 200.0f;		//the character's attack range
 
 	UPROPERTY(EditAnywhere, Category = "Enemy Params")
-	float AttackInterval = 3.0f;
+	float AttackInterval = 3.0f;	//the character's attack invertal
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	int _HelthPoints;
+	int _HealthPoints;
 	float _AttackCountingDown;
-	//현재 타깃의 포인터를 받음
 	APawn* _chasedTarget = nullptr;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy", meta = (DisplayName = "Get HP"))
-	int GetHealthPoints();
+	int GetHealthPoints();			//get current health points
 
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy")
-	bool IsKilled();
+	bool IsKilled();				//check if the character has been killed
 
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy")
-	bool CanAttack();
+	bool CanAttack();				//check if the character can attack
 
-	//PawnSensingComponent가 OnSeePawn 이벤트를 트리거하면 블르프린트가 chase함수를 호출해 타깃을 설정하고 쫒아감.
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy")
 	void Chase(APawn* targetPawn);
 
 	void Attack();
 	void Hit(int damage);
-	void DieProcess();
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void DieProcess();				//process when the character is killed
 
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAceess = "true"))
-	//감지하는 영역 안으로 플레이어 캐릭터가 들어왔는지 체크하는 컴포넌트
-	//영역 안에서 PC가 감지되면 _chasedTarget 변수에 PC가 설정됨
-	//벗어나면 다시 nullptr
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UPawnSensingComponent* PawnSensingComponent;
 };
+

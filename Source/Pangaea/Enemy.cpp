@@ -2,7 +2,7 @@
 
 
 #include "Enemy.h"
-#include "Perception/PawnSensingComponent.h"
+#include "Perception/PawnSensingComponent.h" 
 #include "GameFramework/CharacterMovementComponent.h"
 #include "EnemyController.h"
 #include "EnemyAnimInstance.h"
@@ -10,7 +10,7 @@
 // Sets default values
 AEnemy::AEnemy()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensor"));
@@ -20,7 +20,8 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	_HelthPoints = HealthPoints;
+
+	_HealthPoints = HealthPoints;
 }
 
 // Called every frame
@@ -55,23 +56,25 @@ int AEnemy::GetHealthPoints()
 
 bool AEnemy::IsKilled()
 {
-	return(_HealthPoints <= 0.0f);
+	return (_HealthPoints <= 0.0f);
 }
+
 
 bool AEnemy::CanAttack()
 {
 	auto animInst = GetMesh()->GetAnimInstance();
 	auto enemyAnimInst = Cast<UEnemyAnimInstance>(animInst);
-	return(_AttackCountingDown <= 0.0f && enemyAnimInst->State == EEnemyState::Locomotion);
+	return (_AttackCountingDown <= 0.0f && enemyAnimInst->State == EEnemyState::Locomotion);
 }
+
 
 void AEnemy::Chase(APawn* targetPawn)
 {
 	auto animInst = GetMesh()->GetAnimInstance();
-	auto enemyAnimInst = Cast<UPlayerAvatarAnimInstance>(animInst);
+	auto enemyAnimInst = Cast<UEnemyAnimInstance>(animInst);
 	if (targetPawn != nullptr && enemyAnimInst->State == EEnemyState::Locomotion)
 	{
-		auto enemyContoroller = Cast<AEnemyController>GetContorller());
+		auto enemyController = Cast<AEnemyController>(GetController());
 		enemyController->MoveToActor(targetPawn, 90.0f);
 	}
 	_chasedTarget = targetPawn;
@@ -85,15 +88,16 @@ void AEnemy::Attack()
 
 void AEnemy::Hit(int damage)
 {
-	_HelthPoints -= damage;
+	_HealthPoints -= damage;
 
-	auto animInst = GetMesh()->GetAnimInstance());
-	auto enemyAnimInst = Cast<UEnemyAnimInstace>(animInst);
-	enemyAnimInst->State = EPlayerState::Hit;
+	auto animInst = GetMesh()->GetAnimInstance();
+	auto enemyAnimInst = Cast<UEnemyAnimInstance>(animInst);
+	enemyAnimInst->State = EEnemyState::Hit;
+
 
 	if (IsKilled())
 	{
-		DieProcess();
+		PrimaryActorTick.bCanEverTick = false;
 	}
 }
 
@@ -102,12 +106,5 @@ void AEnemy::DieProcess()
 	PrimaryActorTick.bCanEverTick = false;
 	K2_DestroyActor();
 	GEngine->ForceGarbageCollection(true);
-}
-
-// Called to bind functionality to input
-void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
 }
 

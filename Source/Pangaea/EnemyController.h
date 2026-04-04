@@ -7,12 +7,15 @@
 #include "EnemyController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class PANGAEA_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()
-    public:
-	void MakeAttckDecision(APawn* targetPawn);
+
+
+public:
+
+	void MakeAttackDecision(APawn* targetPawn);  //AI decision making. Called by PawnTick
 };
