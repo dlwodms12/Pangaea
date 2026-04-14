@@ -113,6 +113,12 @@ void APlayerAvatar::Attack()
 {
 	_AttackCountingDown = AttackInterval;
 }
+
+void APlayerAvatar::Hit(int damage)
+{
+
+}
+
 //¾×ÅÍ ÆÄ±«
 void APlayerAvatar::DieProcess()
 {
