@@ -14,6 +14,12 @@ AEnemy::AEnemy()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensor"));
+
+	//ConstructorHelpers::FObjectFinder 구조체는 프로젝트의 특정 경로에서 에셋을 찾는 것을 도와줌
+	//UBlueprint를 템플릿 클래스로 입력하여 찾으려는 에셋이 블루프린트임을 알림
+	//에셋을 가리키는 변수가 blueprint_finder
+	static ConstructorHelpers::FObjectFinder<UBlueprint> blueprint_finder(TEXT("Blueprint'/Game/TopDown/Blueprints/BP_Hammer.BP_Hammer'"));
+	_WeaponClass = (UClass*)blueprint_finder.Object->GeneratedClass;
 }
 
 // Called when the game starts or when spawned
@@ -22,6 +28,12 @@ void AEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	_HealthPoints = HealthPoints;
+
+	//해머를 인스턴스화 하기 위해 액터 포인터를 Aweapon*으로 캐스팅하여 _Weapon 변수에 할당
+	_Weapon = Cast<AWeapon>(GetWorld()->SpawnActor(_WeaponClass));
+	//this는 적을 의미하며 적을 해당 무기의 소유주로 등록함
+	_Weapon->Holder = this;
+	_Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_rSocket"));
 }
 
 // Called every frame
