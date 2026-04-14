@@ -38,10 +38,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	float _LifeCountingDown;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Visual, meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* _MeshComponent;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-protected:
-	float _LifeCountingDown;
+	FORCEINLINE UStaticMeshComponent* GetMeshComponent() const { return _MeshComponent; }
 };
