@@ -9,6 +9,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/Blueprint.h"
+#include "Weapon.h"
+#include "PangaeaCharacter.h"
 
 // Sets default values
 ADefenseTower::ADefenseTower()
@@ -134,7 +136,8 @@ void ADefenseTower::OnEndOverlap(UPrimitiveComponent* OverlappedComponent,
 		_Target = nullptr;
 	}
 }
-/*
+
+//추후 수정 필요
 void ADefenseTower::OnMeshBeginOverlap(AActor* OtherActor)
 {
 	AWeapon* weapon = Cast<AWeapon>(OtherActor);
@@ -143,13 +146,12 @@ void ADefenseTower::OnMeshBeginOverlap(AActor* OtherActor)
 		return;
 	}
 
-	APangaeaCharacter* character = weapon->Holder;
+	APangaeaCharacter* character = Cast<APangaeaCharacter>(weapon->Holder);
+	if (character == nullptr) return;
+
 	if (character->IsA(APlayerAvatar::StaticClass()) &&
-		character->IsAttacking() &&
-		weapon->IsWithinAttackRange(character->AttackRange, this) &&
 		CanBeDamaged())
 	{
-		Hit(weapon->Holder->Strength);
+		Hit(weapon->Strength);
 	}
 }
-*/
